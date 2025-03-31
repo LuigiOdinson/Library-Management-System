@@ -1,0 +1,105 @@
+DROP DATABASE IF EXISTS Library;
+CREATE DATABASE Library;
+USE Library;
+
+CREATE TABLE book (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  book_name VARCHAR(50) NOT NULL,
+  book_author VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE genre (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  genre_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE books_genres (
+  book_id INT,
+  genre_id INT,
+  PRIMARY KEY (book_id, genre_id),
+  FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
+  FOREIGN KEY (genre_id) REFERENCES genre(id) ON DELETE CASCADE
+);
+
+CREATE TABLE author (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  author_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE books_authors (
+  book_id INT,
+  author_id INT,
+  PRIMARY KEY (book_id, author_id),
+  FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
+  FOREIGN KEY (author_id) REFERENCES author(id) ON DELETE CASCADE
+);
+
+CREATE TABLE user (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  birth_date DATE NOT NULL,
+  email VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE borrow (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  book_id INT,
+  FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+  borrowed_at DATE NOT NULL,
+  returned_at DATE DEFAULT NULL,
+  borrow_fine DECIMAL(8, 2) NOT NULL DEFAULT 0.00
+);
+
+
+-- inserting sample data 
+INSERT INTO book (book_name, book_author) VALUES
+('The Great Gatsby', 'F. Scott Fitzgerald'),
+('1984', 'George Orwell'),
+('To Kill a Mockingbird', 'Harper Lee'),
+('Pride and Prejudice', 'Jane Austen'),
+('The Catcher in the Rye', 'J.D. Salinger');
+
+INSERT INTO genre (genre_name) VALUES
+('Fiction'),
+('Science Fiction'),
+('Classic'),
+('Mystery'),
+('Romance');
+
+INSERT INTO books_genres (book_id, genre_id) VALUES
+(1, 3),  -- The Great Gatsby -> Classic
+(2, 2),  -- 1984 -> Science Fiction
+(3, 3),  -- To Kill a Mockingbird -> Classic
+(4, 5),  -- Pride and Prejudice -> Romance
+(5, 3);  -- The Catcher in the Rye -> Classic
+
+INSERT INTO author (author_name) VALUES
+('F. Scott Fitzgerald'),
+('George Orwell'),
+('Harper Lee'),
+('Jane Austen'),
+('J.D. Salinger');
+
+INSERT INTO books_authors (book_id, author_id) VALUES
+(1, 1),  -- The Great Gatsby -> F. Scott Fitzgerald
+(2, 2),  -- 1984 -> George Orwell
+(3, 3),  -- To Kill a Mockingbird -> Harper Lee
+(4, 4),  -- Pride and Prejudice -> Jane Austen
+(5, 5);  -- The Catcher in the Rye -> J.D. Salinger
+
+INSERT INTO user (first_name, last_name, birth_date, email) VALUES
+('Alice', 'Johnson', '1995-08-15', 'alice.johnson@example.com'),
+('Bob', 'Smith', '1988-03-22', 'bob.smith@example.com'),
+('Charlie', 'Brown', '2000-06-10', 'charlie.brown@example.com'),
+('Diana', 'Miller', '1992-11-05', 'diana.miller@example.com'),
+('Ethan', 'Wilson', '1985-09-30', 'ethan.wilson@example.com');
+
+INSERT INTO borrow (book_id, user_id, borrowed_at, returned_at, borrow_fine) VALUES
+(1, 1, '2024-03-10', NULL, 0.00),  -- Alice borrowed The Great Gatsby (not returned)
+(2, 2, '2024-02-25', '2024-03-05', 0.00),  -- Bob borrowed 1984 (returned)
+(3, 3, '2024-03-01', NULL, 2.50),  -- Charlie borrowed To Kill a Mockingbird (late)
+(4, 4, '2024-02-15', '2024-02-25', 0.00),  -- Diana borrowed Pride and Prejudice (returned)
+(5, 5, '2024-03-05', NULL, 5.00);  -- Ethan borrowed The Catcher in the Rye (late)
