@@ -3,6 +3,7 @@ import * as db from './data/database.js'
 
 const app = express()
 app.use(express.json())
+app.use(express.static('public'))
 
 app.get('/books', async (req, res) => {
   const books = await db.get_books()
