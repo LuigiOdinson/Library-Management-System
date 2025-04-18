@@ -51,6 +51,11 @@
     background-color: rgb(167, 167, 255);
     height: 450px;
     border-radius: 10px;
+    box-shadow: 7px 7px 7px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+.book:hover {
+    transform: scale(1.03);
 }
 .book-cover {
     background-color: blueviolet;
