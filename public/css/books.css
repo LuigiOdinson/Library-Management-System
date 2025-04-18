@@ -1,20 +1,8 @@
-:root {
-    --scrollbar-width: 15px;
-    --body-width: calc(100vw - var(--scrollbar-width));
-}
-body {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-    height: 1000px;
-    width: var(--body-width);
-}
-::-webkit-scrollbar {
-    width: var(--scrollbar-width)
-}
-::-webkit-scrollbar-track {
-    background-color: blueviolet;
 }
 .header {
     height: 70px;
@@ -25,11 +13,6 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    /* we set the body width in body{} so elements don't get covered by the scrollbar
-    but since divs with position fixed or absolute need left,top,.. to 
-    adjust (in this example it's gonna stick to the right side anyway)
-    we're gonna use max-width */
-    max-width: var(--body-width); 
     position: fixed;
     left: 0;
     right: 0;
@@ -53,15 +36,43 @@ body {
 }
 .books-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    /*
+    auto-fill adjusts the number of columns based on available space
+    minmax(230px, 1fr) ensures each column is at least 230px but can expand if there’s extra space
+    */
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
     background-color: bisque;
     padding: 50px 30px;
-    row-gap: 20px;
-    column-gap: 20px;
+    max-width: 1200px;
+    margin: auto;
 }
 .book {
-    display: flex;
-    background-color: blue;
+    background-color: rgb(167, 167, 255);
+    height: 450px;
+    border-radius: 10px;
+}
+.book-cover {
+    background-color: blueviolet;
+    width: calc(100% - 20px); 
+    /* -10px so the margin:5px doesn't expand beyond its container and break */
+    height: 80%;
+    margin: 10px;
+    margin-bottom: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.book-cover img {
     width: 100%;
-    height: 350px;
+    height: 100%;
+    object-fit: cover;
+}
+.book h2 {
+    font-size: 23px;
+    margin-left: 15px;
+    margin-bottom: 2px;
+}
+.book p {
+    font-size: 16px;
+    margin-left: 15px;
 }
