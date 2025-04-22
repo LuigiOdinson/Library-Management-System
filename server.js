@@ -20,12 +20,12 @@ app.post('/', async (req, res) => {
 
 app.get('/books/:id', async (req, res) => {
   const id = req.params.id
-  const book = await db.get_single_book(id)
+  const [book] = await db.get_single_book(id)
   if (!book){
     res.status(404).send('404 not found')
     return
   }
-  res.send(book)
+  res.render('singleBook.ejs', {book})
 })
 
 app.use((err, req, res, next) => {

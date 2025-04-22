@@ -5,7 +5,7 @@ USE Library;
 CREATE TABLE book (
   id INT AUTO_INCREMENT PRIMARY KEY,
   book_name VARCHAR(50) NOT NULL,
-  book_author VARCHAR(50) NOT NULL
+  published_at INT NOT NULL
 );
 
 CREATE TABLE genre (
@@ -53,14 +53,28 @@ CREATE TABLE borrow (
   borrow_fine DECIMAL(8, 2) NOT NULL DEFAULT 0.00
 );
 
+CREATE VIEW book_genre_author AS
+  SELECT 
+    book.id,
+    book.book_name,
+    book.published_at,
+    genre.genre_name,
+    author.author_name
+  FROM book
+  JOIN books_genres ON book.id = books_genres.book_id
+  JOIN genre ON books_genres.genre_id = genre.id
+
+  JOIN books_authors ON book.id = books_authors.book_id
+  JOIN author ON books_authors.author_id = author.id;
 
 -- inserting sample data 
-INSERT INTO book (book_name, book_author) VALUES
-('The Great Gatsby', 'F. Scott Fitzgerald'),
-('1984', 'George Orwell'),
-('To Kill a Mockingbird', 'Harper Lee'),
-('Pride and Prejudice', 'Jane Austen'),
-('The Catcher in the Rye', 'J.D. Salinger');
+INSERT INTO book (book_name, published_at) VALUES
+('The Great Gatsby', 1925),
+('1984', 1949),
+('To Kill a Mockingbird', 1960),
+('Pride and Prejudice', 1813),
+('The Catcher in the Rye', 1951);
+
 
 INSERT INTO genre (genre_name) VALUES
 ('Fiction'),

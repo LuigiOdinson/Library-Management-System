@@ -14,35 +14,25 @@ const pool = mysql.createPool({
 export async function get_books(inp) {
   if (!inp) {
     const [result] = await pool.query(`
-      SELECT * FROM book
+      SELECT * FROM book_genre_author
     `)
     return result
   }
   const searchTerm = `%${inp}%`
   const [result] = await pool.query(`
-    SELECT * FROM book 
+    SELECT * FROM book_genre_author
     WHERE book_name LIKE ? 
-    OR book_author LIKE ?
+    OR genre_name LIKE ?
   `, [searchTerm, searchTerm])
   return result
 }
 
 export async function get_single_book(id) {
   const [result] = await pool.query(`
-    SELECT * FROM book
+    SELECT * FROM book_genre_author
     WHERE id = ?
   `, [id])
   return result.length ? result : null
-}
-
-export async function search_book(inp) {
-  const searchTerm = `%${inp}%`
-  const [result] = await pool.query(`
-    SELECT * FROM book 
-    WHERE book_name LIKE ? 
-    OR book_author LIKE ?
-  `, [searchTerm, searchTerm])
-  return result 
 }
 
 export async function add_book(book_name, book_author) {

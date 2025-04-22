@@ -29,13 +29,13 @@
 
     <div class="books-grid">
         <% books.forEach(book => { %>
-            <div class="book">
+            <a href="/books/<%= book.id %>" class="book">
                 <div class="book-cover">
                     <img src="https://m.media-amazon.com/images/I/81TLiZrasVL._SL1500_.jpg" alt="">
                 </div>
                 <h2><%= book.book_name %></h2>
-                <p>by <%= book.book_author %> </p>
-            </div>
+                <p>by: <%= book.author_name %> </p>
+            </a>
         <% }) %>
     </div>
 </body>
