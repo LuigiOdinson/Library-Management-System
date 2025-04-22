@@ -11,10 +11,19 @@ const pool = mysql.createPool({
 }).promise();
 
 
-export async function get_books() {
+export async function get_books(inp) {
+  if (!inp) {
+    const [result] = await pool.query(`
+      SELECT * FROM book
+    `)
+    return result
+  }
+  const searchTerm = `%${inp}%`
   const [result] = await pool.query(`
-    SELECT * FROM book
-  `)
+    SELECT * FROM book 
+    WHERE book_name LIKE ? 
+    OR book_author LIKE ?
+  `, [searchTerm, searchTerm])
   return result
 }
 

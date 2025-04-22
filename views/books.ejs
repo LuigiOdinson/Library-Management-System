@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <link rel="stylesheet" href="/css/books.css">
+</head>
+<body>
+    <div class="header">
+        <img src="/images/hamburger-menu.png" alt="">
+        <h1>LOGO</h1>
+        <img src="/images/hamburger-menu.png" alt="">
+    </div>
+
+    <div class="search-section">
+        <h2>Find Your Next Book</h2>
+        <div class="search-bar">
+            <form action="/books" method="get">
+                <input type="text" name="searchInput">
+                <button>Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="filter-section">
+        
+    </div>
+
+    <div class="books-grid">
+        <% books.forEach(book => { %>
+            <div class="book">
+                <div class="book-cover">
+                    <img src="https://m.media-amazon.com/images/I/81TLiZrasVL._SL1500_.jpg" alt="">
+                </div>
+                <h2><%= book.book_name %></h2>
+                <p>by <%= book.book_author %> </p>
+            </div>
+        <% }) %>
+    </div>
+</body>
+</html>

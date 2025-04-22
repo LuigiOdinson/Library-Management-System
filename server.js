@@ -4,10 +4,12 @@ import * as db from './data/database.js'
 const app = express()
 app.use(express.json())
 app.use(express.static('public'))
+app.set("view engine", "ejs")
 
 app.get('/books', async (req, res) => {
-  const books = await db.get_books()
-  res.send(books)
+  const searchInput = req.query.searchInput
+  const books = await db.get_books(searchInput)
+  res.render('books.ejs', {books})
 })
 
 app.post('/', async (req, res) => {
