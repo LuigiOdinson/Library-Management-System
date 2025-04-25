@@ -22,8 +22,23 @@ export async function get_books(inp) {
   const [result] = await pool.query(`
     SELECT * FROM book_genre_author
     WHERE book_name LIKE ? 
-    OR genre_name LIKE ?
+    OR author_name LIKE ?
   `, [searchTerm, searchTerm])
+  return result
+}
+
+export async function get_books_by_genre(inp){
+  if (!inp) {
+    const [result] = await pool.query(`
+      SELECT * FROM book_genre_author
+    `)
+    return result
+  }
+  const filterTerm = `%${inp}%`
+    const [result] = await pool.query(`
+      SELECT * FROM book_genre_author
+      WHERE genre_name LIKE ?
+    `, [filterTerm])
   return result
 }
 
@@ -43,4 +58,5 @@ export async function add_book(book_name, book_author) {
   const id = result.insertId
   return get_single_book(id)
 }
+
 

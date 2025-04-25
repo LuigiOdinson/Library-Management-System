@@ -13,18 +13,22 @@
         <img src="/images/hamburger-menu.png" alt="">
     </div>
 
-    <div class="search-section">
+    <div class="banner">
         <h2>Find Your Next Book</h2>
-        <div class="search-bar">
-            <form action="/books" method="get">
-                <input type="text" name="searchInput">
-                <button>Search</button>
-            </form>
-        </div>
-    </div>
+        <form action="/books" method="get" class="search-bar">
+            <input type="text" name="searchInput">
+            <button>Search</button>
 
-    <div class="filter-section">
-        
+            <div class="filter-section">
+                <p>filter By genre:</p>
+                <button class="filter-tag">Classic</button>
+                <button class="filter-tag">Romance</button>
+                <button class="filter-tag">Science Fiction</button>
+            </div>
+        </form>
+        <div class="search-section">
+            
+        </div>
     </div>
 
     <div class="books-grid">
