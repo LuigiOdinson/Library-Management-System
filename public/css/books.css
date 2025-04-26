@@ -42,6 +42,11 @@
     align-items: center;
     padding: 10px 20px;
 }
+.search-section {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 .filter-tag {
     border-radius: 20px;
     margin-left: 5px;

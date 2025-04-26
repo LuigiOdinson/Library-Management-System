@@ -10,35 +10,26 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE
 }).promise();
 
+export async function get_books(search, genre) {
+  let query = 'SELECT * FROM book_genre_author'
+  let values = []
+  let conditions = []
 
-export async function get_books(inp) {
-  if (!inp) {
-    const [result] = await pool.query(`
-      SELECT * FROM book_genre_author
-    `)
-    return result
+  if (search) {
+    conditions.push(' WHERE book_name LIKE ? OR author_name LIKE ? ')
+    const searchTerm = `%${search}%`
+    values.push(searchTerm, searchTerm)
   }
-  const searchTerm = `%${inp}%`
-  const [result] = await pool.query(`
-    SELECT * FROM book_genre_author
-    WHERE book_name LIKE ? 
-    OR author_name LIKE ?
-  `, [searchTerm, searchTerm])
-  return result
-}
+  if (genre) {
+    conditions.push(' WHERE genre_name LIKE ? ')
+    const genreTerm = `%${genre}%`
+    values.push(genreTerm)
+  }
+  if (conditions.length > 0) { //we have at least one condition
+    query += conditions.join(' AND ')
+  }
 
-export async function get_books_by_genre(inp){
-  if (!inp) {
-    const [result] = await pool.query(`
-      SELECT * FROM book_genre_author
-    `)
-    return result
-  }
-  const filterTerm = `%${inp}%`
-    const [result] = await pool.query(`
-      SELECT * FROM book_genre_author
-      WHERE genre_name LIKE ?
-    `, [filterTerm])
+  const [result] = await pool.query(query, values)
   return result
 }
 

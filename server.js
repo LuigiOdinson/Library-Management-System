@@ -7,8 +7,8 @@ app.use(express.static('public'))
 app.set("view engine", "ejs")
 
 app.get('/books', async (req, res) => {
-  const searchInput = req.query.searchInput
-  const books = await db.get_books(searchInput)
+  const {searchInput, genreFilter} = req.query
+  const books = await db.get_books(searchInput, genreFilter)
   res.render('books.ejs', {books})
 })
 
