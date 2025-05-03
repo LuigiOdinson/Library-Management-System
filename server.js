@@ -1,21 +1,24 @@
 import express from "express"
+import session from "express-session"
 import * as db from './data/database.js'
 
 const app = express()
 app.use(express.json())
 app.use(express.static('public'))
 app.set("view engine", "ejs")
+app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
 
 app.get('/books', async (req, res) => {
   const {searchInput, genreFilter} = req.query
   const books = await db.get_books(searchInput, genreFilter)
-  res.render('books.ejs', {books})
-})
-
-app.post('/', async (req, res) => {
-  const {book_name, book_author} = req.body
-  const added_book = await db.add_book(book_name, book_author)
-  res.status(201).send(added_book)
+  const user = req.session.user;
+  res.render('books.ejs', {books, user})
 })
 
 app.get('/books/:id', async (req, res) => {
@@ -28,6 +31,34 @@ app.get('/books/:id', async (req, res) => {
   res.render('singleBook.ejs', {book})
 })
 
+// register routes 
+app.get('/register', (req, res) => {
+  res.render('register.ejs')
+})
+
+app.post('/register', (req, res) => {
+  const registerInputs = req.body
+  db.register(registerInputs)
+  res.redirect('/books')
+})
+
+// login routes
+app.get('/login', (req, res) => {
+  res.render('login.ejs')
+})
+
+app.post('/login', async (req, res) => {
+  const loginInputs = req.body
+  const user = await db.login(loginInputs)
+  if (user.length > 0) {
+    req.session.user = user[0]
+    res.redirect('/books')
+  } else {
+    res.send('user not found')
+  }
+})
+
+// running server
 app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(500).send("something broke")
