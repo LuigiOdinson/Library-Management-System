@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>Book</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel='stylesheet' type='text/css' media='screen' href='/css/books.css'>
+  <link rel="stylesheet" href='/css/singleBook.css'>
+  <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
-  <div>
-    <div class="book-cover">
-      <img src="https://m.media-amazon.com/images/I/81TLiZrasVL._SL1500_.jpg" alt="">
+  <%- include('partials/header', {user}) %>
+
+  <div class="book-card">
+    <img src="https://m.media-amazon.com/images/I/81TLiZrasVL._SL1500_.jpg" alt="" class="book-cover">
+    <div class="book-content">
+      <h2><%= book.book_name %></h2>
+      <p>by <%= book.author_name %> </p>
+      <% if (user) { %>
+        <form method="post" action="/borrow/<%= book.id %>">
+          <button class="borrow-button">Borrow</button>
+        </form>
+        
+      <% } %>
     </div>
-    <h2><%= book.book_name %></h2>
-    <p>by <%= book.author_name %> </p>
-  </div>
+  <div>
+  
 </body>
 </html>

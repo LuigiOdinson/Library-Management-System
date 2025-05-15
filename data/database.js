@@ -11,7 +11,6 @@ const pool = mysql.createPool({
 }).promise();
 
 // book functions
-
 export async function get_books(search, genre) {
   let query = 'SELECT * FROM book_genre_author'
   let values = []
@@ -52,6 +51,10 @@ export async function add_book(book_name, book_author) {
   return get_single_book(id)
 }
 
+export async function add_borrow(book_id, user){
+  
+}
+
 // login-functions
 export async function register(registerInputs) {
   const {first_name, last_name, birth_date, email} = registerInputs
@@ -60,7 +63,7 @@ export async function register(registerInputs) {
     VALUES (?, ?, ?, ?) 
   `, [first_name, last_name, birth_date, email])
 }
-
+// find user by email
 export async function login(loginInputs) {
   const {email} = loginInputs
   const [result] = await pool.query(`

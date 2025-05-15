@@ -17,18 +17,19 @@ app.use(session({
 app.get('/books', async (req, res) => {
   const {searchInput, genreFilter} = req.query
   const books = await db.get_books(searchInput, genreFilter)
-  const user = req.session.user;
+  const user = req.session.user
   res.render('books.ejs', {books, user})
 })
 
 app.get('/books/:id', async (req, res) => {
-  const id = req.params.id
-  const [book] = await db.get_single_book(id)
+  const book_id = req.params.id
+  const user = req.session.user
+  const [book] = await db.get_single_book(book_id)
   if (!book){
     res.status(404).send('404 not found')
     return
   }
-  res.render('singleBook.ejs', {book})
+  res.render('singleBook.ejs', {book, user})
 })
 
 // register routes 
@@ -56,6 +57,25 @@ app.post('/login', async (req, res) => {
   } else {
     res.send('user not found')
   }
+})
+
+app.get('/logout', (req, res) => {
+  // deletes all session data for that user
+  req.session.destroy(err => {
+    if (err) {
+      res.send('Could not log out')
+      return
+    }
+    res.redirect('/books')
+  })
+})
+
+// borrowing
+app.post('/borrow/:id', async (req, res) => {
+  console.log('Session on POST:', req.session);
+  const book_id = req.params.id
+  const user = req.session.user
+  res.send(`user ${user.first_name} borrowed ${book_id}`)
 })
 
 // running server

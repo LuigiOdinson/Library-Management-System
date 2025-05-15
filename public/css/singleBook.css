@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.book-card {
+  background-color: bisque;
+  position: relative;
+  display: flex;
+  width: 90vw;
+  margin: auto;
+  max-width: 1000px;
+  padding: 20px;
+  margin-top: 100px;
+  border-radius: 8px;
+  box-shadow: 7px 7px 7px rgba(0,0,0,0.2);
+}
+.book-cover {
+  width: 200px;
+  border-radius: 8px;
+}
+.book-content {
+  padding: 20px;
+  line-height: 1.8;
+}
+.borrow-button {
+  background-color: #1abc9c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 20px;
+}
