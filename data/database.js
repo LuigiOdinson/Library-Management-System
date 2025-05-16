@@ -51,8 +51,11 @@ export async function add_book(book_name, book_author) {
   return get_single_book(id)
 }
 
-export async function add_borrow(book_id, user){
-  
+export async function add_borrow(book_id, user_id){
+  await pool.query(`
+    INSERT INTO borrow (book_id, user_id)
+    VALUES (?, ?)
+  `, [book_id, user_id])
 }
 
 // login-functions

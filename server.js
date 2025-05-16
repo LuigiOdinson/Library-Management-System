@@ -72,10 +72,10 @@ app.get('/logout', (req, res) => {
 
 // borrowing
 app.post('/borrow/:id', async (req, res) => {
-  console.log('Session on POST:', req.session);
   const book_id = req.params.id
-  const user = req.session.user
-  res.send(`user ${user.first_name} borrowed ${book_id}`)
+  const user_id = req.session.user.id
+  db.add_borrow(book_id, user_id)
+  res.redirect('/books')
 })
 
 // running server

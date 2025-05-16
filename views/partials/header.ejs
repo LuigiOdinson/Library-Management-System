@@ -1,15 +1,14 @@
 <div class="header">
-  <% if (user) { %>
-      <div>
-          User: <%= user.first_name %> |
-          <a href="/logout">logout</a>
-      </div>
-  <% } else { %>
-      <div>
-          <a href="/login">Login</a> |
-          <a href="/register">Register</a>
-      </div>
-  <% } %>
   <h1>LOGO</h1>
-  <img src="/images/hamburger-menu.png" alt="">
+  <% if (user) { %>
+    <div>
+      User: <%= user.first_name %> |
+      <a href="/logout">logout</a>
+    </div>
+  <% } else { %>
+    <div>
+      <a href="/login">Login</a> |
+      <a href="/register">Register</a>
+    </div>
+  <% } %>
 </div>

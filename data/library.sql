@@ -48,7 +48,7 @@ CREATE TABLE borrow (
   FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
   user_id INT,
   FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-  borrowed_at DATE NOT NULL,
+  borrowed_at DATE NOT NULL DEFAULT (CURRENT_TIMESTAMP),
   returned_at DATE DEFAULT NULL,
   borrow_fine DECIMAL(8, 2) NOT NULL DEFAULT 0.00
 );
@@ -110,10 +110,3 @@ INSERT INTO user (first_name, last_name, birth_date, email) VALUES
 ('Charlie', 'Brown', '2000-06-10', 'charlie.brown@example.com'),
 ('Diana', 'Miller', '1992-11-05', 'diana.miller@example.com'),
 ('Ethan', 'Wilson', '1985-09-30', 'ethan.wilson@example.com');
-
-INSERT INTO borrow (book_id, user_id, borrowed_at, returned_at, borrow_fine) VALUES
-(1, 1, '2024-03-10', NULL, 0.00),  -- Alice borrowed The Great Gatsby (not returned)
-(2, 2, '2024-02-25', '2024-03-05', 0.00),  -- Bob borrowed 1984 (returned)
-(3, 3, '2024-03-01', NULL, 2.50),  -- Charlie borrowed To Kill a Mockingbird (late)
-(4, 4, '2024-02-15', '2024-02-25', 0.00),  -- Diana borrowed Pride and Prejudice (returned)
-(5, 5, '2024-03-05', NULL, 5.00);  -- Ethan borrowed The Catcher in the Rye (late)
