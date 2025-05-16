@@ -1,11 +1,12 @@
 .header {
   height: 70px;
-  background-color: black;
+  background-color: #1d2d44;
   color: white;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 1rem 2rem;
 
   position: fixed;
   left: 0;
@@ -16,4 +17,7 @@
 .header a {
   text-decoration: none;
   color: white;
+}
+.book-icon {
+  width: 3rem;
 }

@@ -1,12 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
 .book-card {
-  background-color: bisque;
+  background-color: #BFD0D9;
   position: relative;
   display: flex;
   width: 90vw;
@@ -14,19 +7,19 @@
   max-width: 1000px;
   padding: 20px;
   margin-top: 100px;
-  border-radius: 8px;
+  border-radius: 1rem;
   box-shadow: 7px 7px 7px rgba(0,0,0,0.2);
 }
 .book-cover {
   width: 200px;
-  border-radius: 8px;
+  border-radius: 1rem;
 }
 .book-content {
   padding: 20px;
   line-height: 1.8;
 }
 .borrow-button {
-  background-color: #1abc9c;
+  background-color: #1d2d44;
   color: white;
   padding: 10px 20px;
   border: none;

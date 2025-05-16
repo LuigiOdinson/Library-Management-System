@@ -4,40 +4,42 @@
   <title>Books</title>
   <link rel="stylesheet" href="/css/books.css">
   <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/general.css">
   <script src="/js/searchFilter.js" defer></script>
 </head>
 <body>
   <%- include('partials/header', {user}) %>
-  
+    
   <div class="banner">
-      <h2>Find Your Next Book</h2>
-      <form action="/books" method="get" class="search-bar">
-          <div class="search-section">
-              <input type="text" name="searchInput">
-              <input type="hidden" name="genreFilter" id="genreFilterInput">
-              <button type="submit">Search</button>
-          </div>
-          
-          <div class="filter-section">
-              <p>filter By genre:</p>
-              <button type="button" name="genreFilter" data-genre="No-Filter" class="filter-tag">No-Filter</button>
-              <button type="button" name="genreFilter" data-genre="Classic" class="filter-tag">Classic</button>
-              <button type="button" name="genreFilter" data-genre="Romance" class="filter-tag">Romance</button>
-              <button type="button" name="genreFilter" data-genre="Science Fiction" class="filter-tag">Science Fiction</button>
-          </div>
-      </form>
+    <h1>Find Your Next Book</h1>
+    <form action="/books" method="get" class="search-bar">
+      <div class="search-section">
+        <input type="text" name="searchInput">
+        <input type="hidden" name="genreFilter" id="genreFilterInput">
+        <button type="submit">Search</button>
+      </div>
+      
+      <div class="filter-section">
+        <button type="button" name="genreFilter" data-genre="No-Filter" class="filter-tag">No-Filter</button>
+        <button type="button" name="genreFilter" data-genre="Classic" class="filter-tag">Classic</button>
+        <button type="button" name="genreFilter" data-genre="Romance" class="filter-tag">Romance</button>
+        <button type="button" name="genreFilter" data-genre="Science Fiction" class="filter-tag">Science Fiction</button>
+      </div>
+    </form>
   </div>
 
   <div class="books-grid">
-      <% books.forEach(book => { %>
-          <a href="/books/<%= book.id %>" class="book">
-              <div class="book-cover">
-                  <img src="https://m.media-amazon.com/images/I/81TLiZrasVL._SL1500_.jpg" alt="">
-              </div>
-              <h2><%= book.book_name %></h2>
-              <p>by: <%= book.author_name %> </p>
-          </a>
-      <% }) %>
+    <% books.forEach(book => { %>
+      <a href="/books/<%= book.id %>" class="book">
+        <div class="book-cover">
+          <img src="https://m.media-amazon.com/images/I/81TLiZrasVL._SL1500_.jpg" alt="">
+        </div>
+        <div class="book-info">
+          <h2><%= book.book_name %></h2>
+          <p>by: <%= book.author_name %> </p>
+        </div>
+      </a>
+    <% }) %>
   </div>
 </body>
 </html>

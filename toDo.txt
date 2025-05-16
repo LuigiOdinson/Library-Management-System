@@ -1,4 +1,4 @@
-> add genres under search bar
+> add genres under search bar ✅
 > make data samples of some books have more than one genre or author
 [
   CREATE VIEW book_with_genres AS
@@ -13,5 +13,5 @@
 ]
 
 on list:
-> user implementation
-> borrowing system
+> user implementation ✅
+> borrowing system ✅
