@@ -9,6 +9,9 @@
     justify-content: center;
     gap: 10px;
 }
+.banner h1 {
+    font-size: 3rem;
+}
 .search-bar {
     margin-top: 40px;
     display: flex;
