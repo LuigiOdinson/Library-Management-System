@@ -32,7 +32,7 @@
     <% books.forEach(book => { %>
       <a href="/books/<%= book.id %>" class="book">
         <div class="book-cover">
-          <img src="https://m.media-amazon.com/images/I/81TLiZrasVL._SL1500_.jpg" alt="">
+          <img src="https://covers.openlibrary.org/b/title/<%= book.book_name %>-L.jpg" alt="">
         </div>
         <div class="book-info">
           <h2><%= book.book_name %></h2>

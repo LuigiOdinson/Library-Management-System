@@ -1,5 +1,5 @@
 > add genres under search bar ✅
-> make data samples of some books have more than one genre or author
+> make data samples of some books have more than one genre or author ✅
 [
   CREATE VIEW book_with_genres AS
   SELECT 
@@ -11,6 +11,12 @@
   JOIN genre ON books_genres.genre_id = genre.id
   GROUP BY book.id;
 ]
+Let’s say you're grouping by book.id. That means you want one row per book.
+But if a book has multiple authors or multiple genres, those values differ across rows —
+and without aggregation, you’d get duplicate rows for the book.
+
+So, we use GROUP_CONCAT to combine those multiple author or genre values into a single string,
+preserving the one-row-per-book structure.
 
 on list:
 > user implementation ✅
