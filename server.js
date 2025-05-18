@@ -17,8 +17,9 @@ app.use(session({
 app.get('/books', async (req, res) => {
   const {searchInput, genreFilter} = req.query
   const books = await db.get_books(searchInput, genreFilter)
+  const genres = await db.get_genres()
   const user = req.session.user
-  res.render('books.ejs', {books, user})
+  res.render('books.ejs', {books, user, genres})
 })
 
 app.get('/books/:id', async (req, res) => {

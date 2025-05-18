@@ -10,7 +10,7 @@
   <%- include('partials/header', {user}) %>
 
   <div class="book-card">
-    <img src="https://m.media-amazon.com/images/I/81TLiZrasVL._SL1500_.jpg" alt="" class="book-cover">
+    <img src="/images/book-covers/<%= encodeURIComponent(book.book_name) %>.jpg" alt="" class="book-cover">
     <div class="book-content">
       <h2><%= book.book_name %></h2>
       <p>by <%= book.author_name %> </p>

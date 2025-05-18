@@ -20,10 +20,10 @@
       </div>
       
       <div class="filter-section">
-        <button type="button" name="genreFilter" data-genre="No-Filter" class="filter-tag">No-Filter</button>
-        <button type="button" name="genreFilter" data-genre="Classic" class="filter-tag">Classic</button>
-        <button type="button" name="genreFilter" data-genre="Romance" class="filter-tag">Romance</button>
-        <button type="button" name="genreFilter" data-genre="Science Fiction" class="filter-tag">Science Fiction</button>
+        <% genres.forEach(genre => { %>
+          <button type="button" name="genreFilter" data-genre="<%= genre.genre_name %>"
+            class="filter-tag"><%= genre.genre_name %></button>
+        <% }) %>
       </div>
     </form>
   </div>
@@ -31,9 +31,8 @@
   <div class="books-grid">
     <% books.forEach(book => { %>
       <a href="/books/<%= book.id %>" class="book">
-        <div class="book-cover">
-          <img src="https://covers.openlibrary.org/b/title/<%= book.book_name %>-L.jpg" alt="">
-        </div>
+        <img src="/images/book-covers/<%= encodeURIComponent(book.book_name) %>.jpg"
+        alt="" class="book-cover">
         <div class="book-info">
           <h2><%= book.book_name %></h2>
           <p>by: <%= book.author_name %> </p>

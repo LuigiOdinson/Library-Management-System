@@ -17,20 +17,27 @@ export async function get_books(search, genre) {
   let conditions = []
 
   if (search) {
-    conditions.push(' WHERE book_name LIKE ? OR author_name LIKE ? ')
+    conditions.push(' book_name LIKE ? OR author_name LIKE ? ')
     const searchTerm = `%${search}%`
     values.push(searchTerm, searchTerm)
   }
   if (genre) {
-    conditions.push(' WHERE genre_name LIKE ? ')
+    conditions.push(' genre_name LIKE ? ')
     const genreTerm = `%${genre}%`
     values.push(genreTerm)
   }
   if (conditions.length > 0) { //we have at least one condition
-    query += conditions.join(' AND ')
+    query += ' WHERE ' + conditions.join(' AND ')
   }
 
   const [result] = await pool.query(query, values)
+  return result
+}
+
+export async function get_genres() {
+  const [result] = await pool.query(`
+    SELECT genre_name FROM genre
+  `)
   return result
 }
 
